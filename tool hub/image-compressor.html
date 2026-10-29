@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resize Image Online - Free Image Resizer | ToolHub</title>
+  <meta name="description" content="Resize images online for free. Change width and height in pixels. 100% private.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="logo">Tool<span>Hub</span></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="image-compressor.html">Compressor</a>
+        <a href="image-resizer.html">Resizer</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Resize Image Online</h1>
+      <p>Change image width and height in seconds. Free and 100% private.</p>
+    </section>
+    <section class="tool">
+      <div class="dropzone" id="dropzone">
+        <p class="drop-title">Drag and drop your image here</p>
+        <p class="drop-or">or</p>
+        <button class="btn" id="selectBtn">Select Image</button>
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" hidden>
+        <p class="drop-note">Supports JPG, PNG, WebP</p>
+      </div>
+      <div class="result" id="result" hidden>
+        <div class="quality-box">
+          <div class="size-row">
+            <div><label for="widthInput">Width (px)</label><input type="number" id="widthInput" min="1"></div>
+            <div><label for="heightInput">Height (px)</label><input type="number" id="heightInput" min="1"></div>
+          </div>
+          <label class="check"><input type="checkbox" id="keepRatio" checked> Keep aspect ratio</label>
+          <button class="btn" id="applyBtn">Resize</button>
+        </div>
+        <div class="preview-grid">
+          <div class="preview-card">
+            <h3>Original</h3>
+            <img id="originalImg" alt="Original image">
+            <p id="originalInfo"></p>
+          </div>
+          <div class="preview-card">
+            <h3>Resized</h3>
+            <img id="resizedImg" alt="Resized image">
+            <p id="resizedInfo"></p>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="btn" id="downloadBtn" download="resized-image.jpg">Download Resized Image</a>
+          <button class="btn btn-light" id="resetBtn">Resize Another</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 ToolHub. All processing happens in your browser.</p>
+    </div>
+  </footer>
+
+  <script src="resizer.js"></script>
+</body>
+</html>

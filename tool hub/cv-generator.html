@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free CV Generator - Create a Professional Resume | ToolHub</title>
+  <meta name="description" content="Create a professional CV online for free. Upload your photo, add your details, pick a template and download as PDF or Word. 100% private.">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .cv-main { max-width: 1240px; }
+    .cv-main .hero { padding: 40px 0 24px; }
+    .cv-layout { display: grid; grid-template-columns: minmax(340px, 440px) 1fr; gap: 24px; align-items: start; margin-bottom: 40px; }
+    .cv-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow-sm); }
+    .cv-card h2 { font-size: 16px; margin-bottom: 10px; }
+    .cv-card label { display: block; font-size: 13px; font-weight: 600; margin: 10px 0 4px; }
+    .cv-card input:not([type="file"]):not([type="color"]), .cv-card textarea, .cv-card select {
+      width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; font: inherit; font-size: 14px; background: #fff;
+    }
+    .cv-card textarea { min-height: 84px; resize: vertical; }
+    .cv-card input[type="color"] { width: 56px; height: 42px; padding: 2px; border: 1px solid var(--border); border-radius: 8px; background: #fff; cursor: pointer; }
+    .cv-card input[type="file"] { font-size: 14px; }
+    .cv-pair { display: flex; gap: 14px; align-items: flex-end; }
+    .cv-pair > div:first-child { flex: 1; }
+    .cvf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .cvf-grid .full { grid-column: 1 / -1; }
+    .cv-row-box { border: 1px dashed #cbd5e1; border-radius: 12px; padding: 12px; margin-bottom: 10px; background: #fafbff; }
+    .cvf-remove { margin-top: 8px; background: none; border: none; color: #dc2626; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .btn-sm { padding: 9px 16px; font-size: 14px; }
+    .cv-photo-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    #photoThumb { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }
+    .cv-preview-col { position: sticky; top: 80px; }
+    .cv-toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+    .cv-preview-wrap { background: #e2e8f0; padding: 12px; border-radius: 14px; overflow: auto; max-height: calc(100vh - 180px); }
+    #cvPreview { width: 794px; box-shadow: 0 6px 24px rgba(15, 23, 42, 0.18); background: #fff; }
+    @media (max-width: 980px) {
+      .cv-layout { grid-template-columns: 1fr; }
+      .cv-preview-col { position: static; }
+      .cv-preview-wrap { max-height: none; }
+    }
+    @media (max-width: 520px) { .cvf-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="logo">Tool<span>Hub</span></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="image-compressor.html">Compressor</a>
+        <a href="image-resizer.html">Resizer</a>
+        <a href="image-converter.html">Converter</a>
+        <a href="pdf-converter.html">PDF Converter</a>
+        <a href="word-converter.html">Word Converter</a>
+        <a href="cv-generator.html">CV Generator</a>
+        <a href="qr-generator.html">QR Studio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container cv-main">
+    <section class="hero">
+      <h1>CV Generator</h1>
+      <p>Fill in your details, choose a template and download a professional CV as PDF or Word. Free and 100% private.</p>
+    </section>
+
+    <div class="cv-layout">
+
+      <form id="cvForm" autocomplete="off">
+
+        <div class="cv-card">
+          <h2>1. Template and color</h2>
+          <div class="cv-pair">
+            <div>
+              <label for="template">Template style</label>
+              <select id="template">
+                <option value="modern">Modern (colored sidebar)</option>
+                <option value="classic">Classic (single column)</option>
+                <option value="minimal">Minimal (clean and simple)</option>
+                <option value="creative">Creative (header banner)</option>
+              </select>
+            </div>
+            <div>
+              <label for="accent">Color</label>
+              <input type="color" id="accent" value="#2563eb">
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-card">
+          <h2>2. Photo</h2>
+          <div class="cv-photo-row">
+            <img id="photoThumb" alt="Your photo" hidden>
+            <input type="file" id="photoInput" accept="image/*">
+            <button type="button" class="btn btn-light btn-sm" id="removePhoto" hidden>Remove photo</button>
+          </div>
+        </div>
+
+        <div class="cv-card">
+          <h2>3. Personal details</h2>
+          <label for="fullName">Full name</label>
+          <input type="text" id="fullName" placeholder="e.g. Ahmed Khan">
+          <label for="jobTitle">Job title</label>
+          <input type="text" id="jobTitle" placeholder="e.g. Software Engineer">
+          <div class="cvf-grid">
+            <div>
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="you@example.com">
+            </div>
+            <div>
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" placeholder="+92 300 1234567">
+            </div>
+            <div>
+              <label for="address">City / Address</label>
+              <input type="text" id="address" placeholder="Faisalabad, Pakistan">
+            </div>
+            <div>
+              <label for="website">LinkedIn / Website</label>
+              <input type="text" id="website" placeholder="linkedin.com/in/yourname">
+            </div>
+          </div>
+          <label for="summary">Professional summary</label>
+          <textarea id="summary" placeholder="2 to 3 lines about you, your strengths and your goals"></textarea>
+        </div>
+
+        <div class="cv-card">
+          <h2>4. Education</h2>
+          <div id="eduList"></div>
+          <button type="button" class="btn btn-light btn-sm" id="addEdu">+ Add education</button>
+        </div>
+
+        <div class="cv-card">
+          <h2>5. Work experience</h2>
+          <div id="expList"></div>
+          <button type="button" class="btn btn-light btn-sm" id="addExp">+ Add experience</button>
+        </div>
+
+        <div class="cv-card">
+          <h2>6. Skills, languages and more</h2>
+          <label for="skills">Skills (separate with commas)</label>
+          <textarea id="skills" placeholder="JavaScript, Project Management, Communication"></textarea>
+          <label for="languages">Languages (separate with commas)</label>
+          <input type="text" id="languages" placeholder="Urdu, English, Punjabi">
+          <label for="certs">Certifications / Courses (one per line)</label>
+          <textarea id="certs" placeholder="Google Project Management Certificate&#10;Diploma in Web Development"></textarea>
+        </div>
+
+      </form>
+
+      <aside class="cv-preview-col">
+        <div class="cv-toolbar">
+          <button type="button" class="btn btn-sm" id="pdfBtn">Download PDF</button>
+          <button type="button" class="btn btn-sm" id="wordBtn">Download Word</button>
+        </div>
+        <p class="status" id="status" style="margin:0 0 10px;text-align:left"></p>
+        <div class="cv-preview-wrap" id="previewWrap">
+          <div id="cvPreview"></div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 ToolHub. All processing happens in your browser.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="cv-generator.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Converter - Word to PDF, Text, HTML, Excel, CSV | ToolHub</title>
+  <meta name="description" content="Convert Word (.docx) to PDF, Text, HTML, Markdown, JSON, CSV and Excel online for free. 100% private.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="logo">Tool<span>Hub</span></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="image-compressor.html">Compressor</a>
+        <a href="image-resizer.html">Resizer</a>
+        <a href="image-converter.html">Converter</a>
+        <a href="pdf-converter.html">PDF Converter</a>
+        <a href="word-converter.html">Word Converter</a>
+        <a href="qr-generator.html">QR Studio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Word Converter</h1>
+      <p>Convert Word (.docx) to PDF, Text, HTML, Markdown, JSON, CSV and Excel. Free and 100% private.</p>
+    </section>
+    <section class="tool">
+      <div class="dropzone" id="dropzone">
+        <p class="drop-title">Drag and drop your Word file here</p>
+        <p class="drop-or">or</p>
+        <button class="btn" id="selectBtn">Select Word File</button>
+        <input type="file" id="fileInput" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+        <p class="drop-note">Supports .docx. Your file never leaves your browser</p>
+      </div>
+      <div class="result" id="result" hidden>
+        <div class="quality-box">
+          <p id="fileInfo"></p>
+          <label for="formatSelect">Convert to:</label>
+          <select id="formatSelect" class="select">
+            <option value="pdf">PDF (.pdf)</option>
+            <option value="txt">Text / Notes (.txt)</option>
+            <option value="html">HTML (.html)</option>
+            <option value="md">Markdown (.md)</option>
+            <option value="json">JSON (.json)</option>
+            <option value="csv">Tables to CSV (.csv)</option>
+            <option value="xls">Tables to Excel (.xls)</option>
+          </select>
+        </div>
+        <div class="actions">
+          <button class="btn" id="convertBtn">Convert</button>
+          <a class="btn" id="downloadBtn" hidden>Download</a>
+          <button class="btn btn-light" id="resetBtn">Convert Another</button>
+        </div>
+        <p class="status" id="status"></p>
+        <p class="status">CSV and Excel use the tables inside your document. Old .doc files: open in Word and save as .docx first.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 ToolHub. All processing happens in your browser.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="word-converter.js"></script>
+</body>
+</html>

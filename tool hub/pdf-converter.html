@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Converter - PDF to Word, Excel, Text, JPG, PNG | ToolHub</title>
+  <meta name="description" content="Convert PDF to Word, Excel, CSV, Text, HTML, Markdown, JSON, JPG and PNG online for free. 100% private.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="logo">Tool<span>Hub</span></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="image-compressor.html">Compressor</a>
+        <a href="image-resizer.html">Resizer</a>
+        <a href="image-converter.html">Converter</a>
+        <a href="pdf-converter.html">PDF Converter</a>
+        <a href="qr-generator.html">QR Studio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>PDF Converter</h1>
+      <p>Convert PDF to Word, Excel, Text, HTML, Markdown, JSON and images. Free and 100% private.</p>
+    </section>
+    <section class="tool">
+      <div class="dropzone" id="dropzone">
+        <p class="drop-title">Drag and drop your PDF here</p>
+        <p class="drop-or">or</p>
+        <button class="btn" id="selectBtn">Select PDF</button>
+        <input type="file" id="fileInput" accept="application/pdf,.pdf" hidden>
+        <p class="drop-note">Your file never leaves your browser</p>
+      </div>
+      <div class="result" id="result" hidden>
+        <div class="quality-box">
+          <p id="fileInfo"></p>
+          <label for="formatSelect">Convert to:</label>
+          <select id="formatSelect" class="select">
+            <option value="doc">Word (.doc)</option>
+            <option value="xls">Excel (.xls)</option>
+            <option value="csv">CSV (.csv)</option>
+            <option value="txt">Text / Notes (.txt)</option>
+            <option value="md">Markdown (.md)</option>
+            <option value="html">HTML (.html)</option>
+            <option value="json">JSON (.json)</option>
+            <option value="jpg">Images - JPG</option>
+            <option value="png">Images - PNG</option>
+          </select>
+        </div>
+        <div class="actions">
+          <button class="btn" id="convertBtn">Convert</button>
+          <a class="btn" id="downloadBtn" hidden>Download</a>
+          <button class="btn btn-light" id="resetBtn">Convert Another</button>
+        </div>
+        <p class="status" id="status"></p>
+        <p class="status">Text-based PDFs only for Word, Excel, Text and other text formats. Scanned PDFs (photos of pages) have no text, so use the JPG or PNG option.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 ToolHub. All processing happens in your browser.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="pdf-converter.js"></script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Logo Maker - Create a Logo Online | ToolHub</title>
+  <meta name="description" content="Create a simple logo online for free. Choose text, icon, shape, font and colors, then download a PNG. 100% private.">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .logo-main { max-width: 1100px; }
+    .logo-layout { display: grid; grid-template-columns: minmax(300px, 380px) 1fr; gap: 24px; align-items: start; margin-bottom: 40px; }
+    .logo-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 18px; margin-bottom: 16px; }
+    .logo-card h2 { font-size: 16px; margin-bottom: 10px; }
+    .logo-card label { display: block; font-size: 13px; font-weight: 600; margin: 10px 0 4px; }
+    .logo-card input[type="text"], .logo-card select {
+      width: 100%; padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 10px; font: inherit; font-size: 14px; background: #fff;
+    }
+    .logo-card input[type="range"] { width: 100%; }
+    .logo-card input[type="color"] { width: 100%; height: 42px; padding: 2px; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff; cursor: pointer; }
+    .logo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .logo-check { display: flex !important; align-items: center; gap: 8px; font-weight: 500 !important; }
+    .logo-preview-col { position: sticky; top: 20px; }
+    .logo-stage {
+      background-color: #fff;
+      background-image:
+        linear-gradient(45deg, #e5e7eb 25%, transparent 25%),
+        linear-gradient(-45deg, #e5e7eb 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #e5e7eb 75%),
+        linear-gradient(-45deg, transparent 75%, #e5e7eb 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+      border: 1px solid #e5e7eb; border-radius: 14px; padding: 16px; text-align: center; line-height: 0;
+    }
+    .logo-stage canvas { max-width: 100%; height: auto; border-radius: 8px; }
+    .logo-note { color: #6b7280; font-size: 13px; margin-top: 10px; }
+    .design-intro { color: #6b7280; font-size: 13px; margin-bottom: 12px; }
+    .design-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
+    .design-option { border: 1px solid #e5e7eb; border-radius: 10px; padding: 11px; background: #fff; cursor: pointer; text-align: left; }
+    .design-option:hover, .design-option.active { border-color: #4f46e5; box-shadow: 0 0 0 2px #e0e7ff; }
+    .design-option strong { display: block; font-size: 13px; }
+    .design-option small { display: block; color: #6b7280; margin-top: 3px; }
+    .design-swatches { display: flex; gap: 5px; margin-top: 8px; }
+    .design-swatch { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #e5e7eb; }
+    @media (max-width: 860px) {
+      .logo-layout { grid-template-columns: 1fr; }
+      .logo-preview-col { position: static; order: -1; }
+    }
+  </style>
+  <script src="logo-maker.js" defer></script>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="logo">Tool<span>Hub</span></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="image-compressor.html">Compressor</a>
+        <a href="image-resizer.html">Resizer</a>
+        <a href="image-converter.html">Converter</a>
+        <a href="pdf-converter.html">PDF Converter</a>
+        <a href="word-converter.html">Word Converter</a>
+        <a href="cv-generator.html">CV Generator</a>
+        <a href="background-remover.html">BG Remover</a>
+        <a href="logo-maker.html">Logo Maker</a>
+        <a href="qr-generator.html">QR Studio</a>
+          </nav>
+        </div>
+      </header>
+
+  <main class="container logo-main">
+    <section class="hero">
+      <h1>Logo Maker</h1>
+      <p>Enter your brand name to get professional design directions, then customize and download your logo as PNG.</p>
+    </section>
+
+    <div class="logo-layout">
+
+      <div>
+        <div class="logo-card">
+          <h2>Professional design ideas</h2>
+          <p class="design-intro">We use your brand name and industry style to suggest polished logo directions. No account or internet connection required.</p>
+          <label for="designMode">Brand style</label>
+          <select id="designMode">
+            <option value="auto">Auto-detect from brand name</option>
+            <option value="modern">Modern and minimal</option>
+            <option value="luxury">Luxury and elegant</option>
+            <option value="playful">Friendly and playful</option>
+            <option value="tech">Technology and bold</option>
+          </select>
+          <button class="btn" id="createDesignsBtn" type="button" style="margin-top: 12px; width: 100%;">Create Professional Designs</button>
+          <div id="designGallery" class="design-gallery" aria-live="polite"></div>
+        </div>
+
+        <div class="logo-card">
+          <h2>1. Text</h2>
+          <label for="brandName">Brand name</label>
+          <input type="text" id="brandName" value="ToolHub" maxlength="30">
+          <label for="tagline">Tagline (optional)</label>
+          <input type="text" id="tagline" value="Free online tools" maxlength="50">
+          <label for="industry">Business field or industry</label>
+          <input type="text" id="industry" placeholder="e.g. restaurant, technology, fashion, education" maxlength="40">
+          <p class="design-intro">Add your field so the generator can create a more relevant logo automatically.</p>
+          <label for="languageSelect">Logo language</label>
+          <select id="languageSelect">
+            <option value="auto">Auto-detect language</option>
+            <option value="ltr">English / European languages</option>
+            <option value="rtl">Urdu / Arabic / Persian / Hebrew</option>
+            <option value="indic">Hindi / Bengali / Punjabi and other Indic scripts</option>
+            <option value="cjk">Chinese / Japanese / Korean</option>
+            <option value="other">Other Unicode language</option>
+          </select>
+          <div class="logo-grid">
+            <div>
+              <label for="fontSelect">Font</label>
+              <select id="fontSelect">
+                <option value="Arial, Helvetica, sans-serif">Arial</option>
+                <option value="Verdana, Geneva, sans-serif">Verdana</option>
+                <option value="'Trebuchet MS', sans-serif">Trebuchet</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="'Times New Roman', serif">Times</option>
+                <option value="'Courier New', monospace">Courier</option>
+                <option value="Impact, Haettenschweiler, sans-serif">Impact</option>
+                <option value="'Brush Script MT', cursive">Script</option>
+              </select>
+            </div>
+            <div>
+              <label for="textColor">Text color</label>
+              <input type="color" id="textColor" value="#111827">
+            </div>
+          </div>
+          <label for="textSize">Text size: <strong id="textSizeVal">100</strong>%</label>
+          <input type="range" id="textSize" min="50" max="150" value="100">
+        </div>
+
+        <div class="logo-card">
+          <h2>2. Icon</h2>
+          <label for="brandImage">Your brand image (optional)</label>
+          <input type="file" id="brandImage" accept="image/png,image/jpeg,image/webp">
+          <p class="design-intro">Upload a product, portrait, or brand image. It will replace the automatic icon.</p>
+          <div id="imageControls" hidden>
+            <label for="imageFit">Image fit</label>
+            <select id="imageFit">
+              <option value="cover">Fill shape (crop)</option>
+              <option value="contain">Show whole image</option>
+            </select>
+            <label for="imageZoom">Image zoom: <strong id="imageZoomVal">100</strong>%</label>
+            <input type="range" id="imageZoom" min="50" max="200" value="100">
+            <div class="logo-grid">
+              <div>
+                <label for="imageX">Horizontal position</label>
+                <input type="range" id="imageX" min="-100" max="100" value="0">
+              </div>
+              <div>
+                <label for="imageY">Vertical position</label>
+                <input type="range" id="imageY" min="-100" max="100" value="0">
+              </div>
+            </div>
+            <label for="imageRotation">Rotation: <strong id="imageRotationVal">0</strong>°</label>
+            <input type="range" id="imageRotation" min="-180" max="180" value="0">
+            <button class="btn btn-light" id="resetImageBtn" type="button" style="margin-top: 10px;">Reset image position</button>
+          </div>
+          <div class="logo-grid">
+            <div>
+              <label for="iconType">Icon type</label>
+              <select id="iconType">
+                <option value="letter">First letter</option>
+                <option value="emoji">Emoji</option>
+                <option value="none">No icon</option>
+              </select>
+            </div>
+            <div>
+              <label for="iconShape">Shape</label>
+              <select id="iconShape">
+                <option value="circle">Circle</option>
+                <option value="rounded">Rounded square</option>
+                <option value="square">Square</option>
+                <option value="hexagon">Hexagon</option>
+                <option value="none">No shape</option>
+              </select>
+            </div>
+          </div>
+          <div id="emojiWrap" hidden>
+            <label for="emojiInput">Emoji</label>
+            <input type="text" id="emojiInput" value="🚀" maxlength="4">
+          </div>
+          <div class="logo-grid">
+            <div>
+              <label for="iconColor">Shape color</label>
+              <input type="color" id="iconColor" value="#4f46e5">
+            </div>
+            <div>
+              <label for="iconTextColor">Letter color</label>
+              <input type="color" id="iconTextColor" value="#ffffff">
+            </div>
+          </div>
+        </div>
+
+        <div class="logo-card">
+          <h2>3. Layout and background</h2>
+          <label for="layoutSelect">Layout</label>
+          <select id="layoutSelect">
+            <option value="stacked">Icon on top</option>
+            <option value="horizontal">Icon on the left</option>
+          </select>
+          <div class="logo-grid">
+            <div>
+              <label for="bgColor">Background</label>
+              <input type="color" id="bgColor" value="#ffffff">
+            </div>
+            <div>
+              <label class="logo-check"><input type="checkbox" id="bgTransparent" checked> Transparent</label>
+            </div>
+          </div>
+
+          <div class="logo-card">
+            <h2>4. Platform format</h2>
+            <label for="platformSelect">Create logo for</label>
+            <select id="platformSelect">
+              <option value="youtube">YouTube profile (800 × 800)</option>
+              <option value="youtube-banner">YouTube banner (2560 × 1440)</option>
+              <option value="instagram">Instagram (1080 × 1080)</option>
+              <option value="facebook">Facebook (1024 × 1024)</option>
+              <option value="tiktok">TikTok (200 × 200)</option>
+              <option value="linkedin">LinkedIn (300 × 300)</option>
+              <option value="website">Website / favicon (512 × 512)</option>
+            </select>
+            <p class="design-intro" id="platformInfo">Square format for YouTube profile images.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="logo-preview-col">
+        <div class="logo-stage"><canvas id="logoCanvas"></canvas></div>
+        <p class="logo-note">Downloads as a high quality PNG. Transparent background keeps the checkered area empty.</p>
+        <div class="actions">
+          <button class="btn" id="generateBtn" type="button">Generate Logo</button>
+          <button class="btn btn-light" id="downloadBtn" type="button">Download PNG</button>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+</body>
+</html>

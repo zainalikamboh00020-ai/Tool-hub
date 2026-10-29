@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create QR codes for files, images, PDF, Word, Excel, music, video, Wi-Fi and websites.">
+  <title>QR Studio - ToolHub</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .qr-container {
+      max-width: 780px;
+      margin: 35px auto;
+      padding: 24px;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px #00000010;
+    }
+
+    .qr-container h1, .qr-intro { text-align: center; }
+
+    .qr-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 9px;
+      margin: 25px 0;
+    }
+
+    .qr-type {
+      padding: 12px 7px;
+      border: 1px solid #dce3ec;
+      border-radius: 9px;
+      background: #f4f7fb;
+      cursor: pointer;
+    }
+
+    .qr-type.active {
+      color: white;
+      background: #1769e0;
+    }
+
+    .qr-form { display: none; margin-top: 20px; }
+    .qr-form.active { display: block; }
+
+    .qr-form label {
+      display: block;
+      margin: 14px 0 6px;
+      font-weight: 600;
+    }
+
+    .qr-form input, .qr-form textarea, .qr-form select {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccd4df;
+      border-radius: 8px;
+      font: inherit;
+    }
+
+    .qr-form textarea { min-height: 90px; }
+
+    .qr-action {
+      margin-top: 17px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #1769e0;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .qr-action:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .qr-note {
+      color: #5c6675;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .qr-result {
+      margin-top: 28px;
+      padding: 20px;
+      border: 1px solid #e0e5eb;
+      border-radius: 12px;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    #qrOutput {
+      display: flex;
+      justify-content: center;
+      margin: 20px auto;
+    }
+
+    #qrOutput img, #qrOutput canvas {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .qr-hidden { display: none !important; }
+
+    #qrStatus {
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      overflow-wrap: anywhere;
+    }
+  </style>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+    defer>
+  </script>
+  <script src="qr-generator.js" defer></script>
+</head>
+
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="logo">Tool<span>Hub</span></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="image-compressor.html">Compressor</a>
+        <a href="image-resizer.html">Resizer</a>
+        <a href="image-converter.html">Converter</a>
+        <a href="qr-generator.html">QR Studio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="qr-container">
+      <h1>QR Studio</h1>
+      <p class="qr-intro">Create QR codes for files, links and everyday tasks.</p>
+
+      <div class="qr-types">
+        <button type="button" class="qr-type active" data-type="website">🌐 Website</button>
+        <button type="button" class="qr-type" data-type="text">📝 Text</button>
+        <button type="button" class="qr-type" data-type="wifi">📶 Wi-Fi</button>
+        <button type="button" class="qr-type" data-type="file">📁 Upload File</button>
+        <button type="button" class="qr-type" data-type="contact">👤 Contact</button>
+        <button type="button" class="qr-type" data-type="email">✉️ Email</button>
+        <button type="button" class="qr-type" data-type="phone">📞 Phone</button>
+        <button type="button" class="qr-type" data-type="sms">💬 SMS</button>
+        <button type="button" class="qr-type" data-type="location">📍 Location</button>
+      </div>
+
+      <form id="websiteForm" class="qr-form active">
+        <h2>Website QR</h2>
+        <label for="websiteUrl">Website URL</label>
+        <input id="websiteUrl" type="url" placeholder="https://example.com" required>
+        <button class="qr-action" type="submit">Generate QR</button>
+      </form>
+
+      <form id="textForm" class="qr-form">
+        <h2>Text QR</h2>
+        <label for="textValue">Text or message</label>
+        <textarea id="textValue" required placeholder="Write your message"></textarea>
+        <button class="qr-action" type="submit">Generate QR</button>
+      </form>
+
+      <form id="wifiForm" class="qr-form">
+        <h2>Wi-Fi QR</h2>
+        <label for="wifiSSID">Wi-Fi network name</label>
+        <input id="wifiSSID" required placeholder="Wi-Fi name">
+
+        <label for="wifiPassword">Password</label>
+        <input id="wifiPassword" type="password" placeholder="Wi-Fi password">
+
+        <label for="wifiSecurity">Security type</label>
+        <select id="wifiSecurity">
+          <option value="WPA">WPA/WPA2/WPA3</option>
+          <option value="WEP">WEP</option>
+          <option value="nopass">No password</option>
+        </select>
+
+        <button class="qr-action" type="submit">Generate Wi-Fi QR</button>
+        <p class="qr-note">QR scan karne ke baad compatible phone par Join/Connect option aa sakta hai.</p>
+      </form>
+
+      <form id="fileForm" class="qr-form">
+        <h2>Upload a File and Create QR</h2>
+
+        <label for="fileInput">Select your file</label>
+        <input
+          id="fileInput"
+          type="file"
+          accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.txt,.rtf,.odt,.ods,.odp,.mp3,.wav,.m4a,.ogg,.aac,.flac,.mp4,.mov,.webm"
+          required>
+
+        <p class="qr-note">
+          Supported files include images, PDF, Word, Excel, CSV, PowerPoint,
+          text documents, audio and video. Files will be uploaded to your
+          configured Supabase Storage bucket before their QR is created.
+        </p>
+
+        <button id="uploadButton" class="qr-action" type="submit">
+          Upload File and Generate QR
+        </button>
+
+        <p class="qr-note">
+          Only upload files you have permission to share. Anyone with a public
+          file link may be able to open it.
+        </p>
+      </form>
+
+      <form id="contactForm" class="qr-form">
+        <h2>Contact QR</h2>
+        <label for="contactName">Full name</label>
+        <input id="contactName" required placeholder="Your name">
+
+        <label for="contactPhone">Phone number</label>
+        <input id="contactPhone" type="tel" placeholder="+92...">
+
+        <label for="contactEmail">Email</label>
+        <input id="contactEmail" type="email" placeholder="you@example.com">
+
+        <button class="qr-action" type="submit">Generate Contact QR</button>
+      </form>
+
+      <form id="emailForm" class="qr-form">
+        <h2>Email QR</h2>
+        <label for="emailTo">Email address</label>
+        <input id="emailTo" type="email" required placeholder="you@example.com">
+
+        <label for="emailSubject">Subject</label>
+        <input id="emailSubject" placeholder="Subject">
+
+        <label for="emailBody">Message</label>
+        <textarea id="emailBody" placeholder="Message"></textarea>
+
+        <button class="qr-action" type="submit">Generate Email QR</button>
+      </form>
+
+      <form id="phoneForm" class="qr-form">
+        <h2>Phone QR</h2>
+        <label for="phoneNumber">Phone number</label>
+        <input id="phoneNumber" type="tel" required placeholder="+923001234567">
+        <button class="qr-action" type="submit">Generate Phone QR</button>
+      </form>
+
+      <form id="smsForm" class="qr-form">
+        <h2>SMS QR</h2>
+        <label for="smsNumber">Phone number</label>
+        <input id="smsNumber" type="tel" required placeholder="+923001234567">
+
+        <label for="smsMessage">Message</label>
+        <textarea id="smsMessage" required placeholder="Your message"></textarea>
+
+        <button class="qr-action" type="submit">Generate SMS QR</button>
+      </form>
+
+      <form id="locationForm" class="qr-form">
+        <h2>Location QR</h2>
+        <label for="locationUrl">Google Maps link</label>
+        <input id="locationUrl" type="url" required placeholder="https://maps.google.com/...">
+        <button class="qr-action" type="submit">Generate Location QR</button>
+      </form>
+
+      <section id="qrResult" class="qr-result qr-hidden">
+        <h2>Your QR Code</h2>
+        <div id="qrOutput"></div>
+        <p id="qrDescription" class="qr-note"></p>
+        <button id="downloadQR" class="qr-action" type="button">Download QR PNG</button>
+        <p id="qrStatus" role="status"></p>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 ToolHub. Free online tools.</p>
+    </div>
+  </footer>
+</body>
+</html>

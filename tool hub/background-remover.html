@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background Remover - Remove Image Background Online Free | ToolHub</title>
+  <meta name="description" content="Remove the background from any image online for free. Get a transparent PNG or add a new background color. Your image stays in your browser.">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .bg-controls { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-end; }
+    .bg-controls > div { flex: 1; min-width: 190px; }
+    .bg-controls .select { width: 100%; min-width: 0; }
+    .bg-controls input[type="color"] { width: 100%; height: 44px; padding: 3px; border: 1px solid var(--border); border-radius: 10px; background: #fff; cursor: pointer; }
+    .tol-wrap { margin-top: 16px; }
+    .run-row { margin-top: 16px; }
+    .checker {
+      display: inline-block;
+      max-width: 100%;
+      line-height: 0;
+      border-radius: 10px;
+      background-color: #ffffff;
+      background-image:
+        linear-gradient(45deg, #e5e7eb 25%, transparent 25%),
+        linear-gradient(-45deg, #e5e7eb 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #e5e7eb 75%),
+        linear-gradient(-45deg, transparent 75%, #e5e7eb 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+    }
+    .checker img { border: none; border-radius: 10px; max-width: 100%; max-height: 300px; }
+    .bg-note { margin-top: 12px; color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="logo">Tool<span>Hub</span></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="image-compressor.html">Compressor</a>
+        <a href="image-resizer.html">Resizer</a>
+        <a href="image-converter.html">Converter</a>
+        <a href="pdf-converter.html">PDF Converter</a>
+        <a href="word-converter.html">Word Converter</a>
+        <a href="cv-generator.html">CV Generator</a>
+        <a href="background-remover.html">BG Remover</a>
+        <a href="qr-generator.html">QR Studio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Background Remover</h1>
+      <p>Remove the background from any image in seconds. Download a transparent PNG or add a new color. Your image stays in your browser.</p>
+    </section>
+    <section class="tool">
+      <div class="dropzone" id="dropzone">
+        <p class="drop-title">Drag and drop your image here</p>
+        <p class="drop-or">or</p>
+        <button class="btn" id="selectBtn">Select Image</button>
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" hidden>
+        <p class="drop-note">Supports JPG, PNG, WebP</p>
+      </div>
+
+      <div class="result" id="result" hidden>
+        <div class="quality-box">
+          <div class="bg-controls">
+            <div>
+              <label for="methodSelect">Method</label>
+              <select id="methodSelect" class="select">
+                <option value="ai">AI - best for photos, people and products</option>
+                <option value="quick">Quick - plain or solid backgrounds</option>
+              </select>
+            </div>
+            <div>
+              <label for="bgSelect">New background</label>
+              <select id="bgSelect" class="select">
+                <option value="transparent">Transparent</option>
+                <option value="#ffffff">White</option>
+                <option value="#000000">Black</option>
+                <option value="custom">Custom color</option>
+              </select>
+            </div>
+            <div id="colorWrap" hidden>
+              <label for="bgColor">Color</label>
+              <input type="color" id="bgColor" value="#2563eb">
+            </div>
+          </div>
+
+          <div class="tol-wrap" id="tolWrap" hidden>
+            <label for="tolerance">Sensitivity: <strong id="tolValue">40</strong></label>
+            <input type="range" id="tolerance" min="5" max="150" value="40">
+          </div>
+
+          <div class="run-row">
+            <button class="btn" id="runBtn">Remove Background</button>
+          </div>
+          <p class="bg-note" id="methodNote">AI mode downloads a small model the first time (needs internet) and is faster afterwards. Your image is never uploaded.</p>
+        </div>
+
+        <div class="preview-grid">
+          <div class="preview-card">
+            <h3>Original</h3>
+            <img id="originalImg" alt="Original image">
+            <p id="originalInfo"></p>
+          </div>
+          <div class="preview-card">
+            <h3>Result</h3>
+            <div class="checker"><img id="resultImg" alt="Image without background"></div>
+            <p id="resultInfo"></p>
+          </div>
+        </div>
+
+        <p class="status" id="status"></p>
+
+        <div class="actions">
+          <a class="btn" id="downloadBtn" hidden>Download PNG</a>
+          <button class="btn btn-light" id="resetBtn">Remove Another</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 ToolHub. All processing happens in your browser.</p>
+    </div>
+  </footer>
+
+  <script src="background-remover.js"></script>
+</body>
+</html>
